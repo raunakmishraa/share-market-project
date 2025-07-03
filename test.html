@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="fetchData">Fetch</button>
+    <p id="data"></p>
+</body>
+<script>
+    const data=document.getElementById('data');
+    document.getElementById("fetchData").click(function(){
+        fetch('http://nepstockapi.herokuapp.com/')
+        .then(response => {
+            if (!response.ok) {
+                console.log('Error');
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return response.json(); // Or response.text(), response.blob(), etc.
+        })
+        .then(data => {
+            // Process the fetched data
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle any errors during the fetch operation
+            console.log('Error');
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+</script>
+</html>
